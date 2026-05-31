@@ -3,6 +3,7 @@
 # demonstrate integrity detection.
 set -euo pipefail
 
+make clean
 make
 mkdir -p out
 
