@@ -28,7 +28,7 @@ sx_status sx_manifest_create(const char *source_name, uint64_t file_size, uint32
     m->chunk_count = sx_chunk_count(file_size, chunk_size);
 
     if (m->chunk_count > 0) {
-        m->chunks = calloc((size_t)m->chunk_count, sizeof(*m->chunks));
+        m->chunks = calloc((size_t) m->chunk_count, sizeof(*m->chunks));
         if (m->chunks == NULL) {
             free(m);
             return SX_ERR_ALLOC;
@@ -58,11 +58,10 @@ sx_status sx_manifest_write(const sx_manifest *manifest, FILE *fp) {
     sx_sha256_to_hex(manifest->whole_hash, whole_hex);
 
     /* A simple, line-oriented header. */
-    if (fprintf(fp, "SECUREXFER 1\n") < 0 ||
-        fprintf(fp, "name %s\n", manifest->source_name) < 0 ||
-        fprintf(fp, "size %llu\n", (unsigned long long)manifest->file_size) < 0 ||
+    if (fprintf(fp, "SECUREXFER 1\n") < 0 || fprintf(fp, "name %s\n", manifest->source_name) < 0 ||
+        fprintf(fp, "size %llu\n", (unsigned long long) manifest->file_size) < 0 ||
         fprintf(fp, "chunk_size %u\n", manifest->chunk_size) < 0 ||
-        fprintf(fp, "chunks %llu\n", (unsigned long long)manifest->chunk_count) < 0 ||
+        fprintf(fp, "chunks %llu\n", (unsigned long long) manifest->chunk_count) < 0 ||
         fprintf(fp, "whole %s\n", whole_hex) < 0) {
         return SX_ERR_IO;
     }
@@ -71,8 +70,8 @@ sx_status sx_manifest_write(const sx_manifest *manifest, FILE *fp) {
         const sx_chunk *c = &manifest->chunks[i];
         char chunk_hex[SX_SHA256_HEX_LEN];
         sx_sha256_to_hex(c->hash, chunk_hex);
-        if (fprintf(fp, "chunk %llu %llu %u %s\n", (unsigned long long)c->index,
-                    (unsigned long long)c->offset, c->length, chunk_hex) < 0) {
+        if (fprintf(fp, "chunk %llu %llu %u %s\n", (unsigned long long) c->index,
+                    (unsigned long long) c->offset, c->length, chunk_hex) < 0) {
             return SX_ERR_IO;
         }
     }
@@ -90,7 +89,7 @@ static sx_status parse_hex(const char *hex, uint8_t out[SX_SHA256_DIGEST_LEN]) {
         if (sscanf(hex + i * 2, "%2x", &byte) != 1) {
             return SX_ERR_FORMAT;
         }
-        out[i] = (uint8_t)byte;
+        out[i] = (uint8_t) byte;
     }
     return SX_OK;
 }
@@ -112,11 +111,9 @@ sx_status sx_manifest_read(FILE *fp, sx_manifest **out) {
     char whole_hex[SX_SHA256_HEX_LEN] = {0};
 
     /* %255s bounds the name read to the buffer. */
-    if (fscanf(fp, "name %255s\n", name) != 1 ||
-        fscanf(fp, "size %llu\n", &size) != 1 ||
+    if (fscanf(fp, "name %255s\n", name) != 1 || fscanf(fp, "size %llu\n", &size) != 1 ||
         fscanf(fp, "chunk_size %u\n", &chunk_size) != 1 ||
-        fscanf(fp, "chunks %llu\n", &chunks) != 1 ||
-        fscanf(fp, "whole %64s\n", whole_hex) != 1) {
+        fscanf(fp, "chunks %llu\n", &chunks) != 1 || fscanf(fp, "whole %64s\n", whole_hex) != 1) {
         return SX_ERR_FORMAT;
     }
 
@@ -127,7 +124,7 @@ sx_status sx_manifest_read(FILE *fp, sx_manifest **out) {
     }
 
     /* The recomputed chunk_count must match the declared count. */
-    if (m->chunk_count != (uint64_t)chunks) {
+    if (m->chunk_count != (uint64_t) chunks) {
         sx_manifest_free(m);
         return SX_ERR_FORMAT;
     }
@@ -150,8 +147,8 @@ sx_status sx_manifest_read(FILE *fp, sx_manifest **out) {
         }
 
         sx_chunk *c = &m->chunks[i];
-        c->index = (uint64_t)index;
-        c->offset = (uint64_t)offset;
+        c->index = (uint64_t) index;
+        c->offset = (uint64_t) offset;
         c->length = length;
         status = parse_hex(chunk_hex, c->hash);
         if (status != SX_OK) {

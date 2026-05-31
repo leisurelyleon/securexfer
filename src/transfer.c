@@ -25,7 +25,7 @@ static sx_status file_size_of(FILE *fp, uint64_t *out) {
     if (fseek(fp, 0, SEEK_SET) != 0) {
         return SX_ERR_IO;
     }
-    *out = (uint64_t)end;
+    *out = (uint64_t) end;
     return SX_OK;
 }
 
@@ -85,7 +85,7 @@ sx_status sx_pack(const char *source_path, const char *dest_path, uint32_t chunk
             break;
         }
 
-        status = sx_chunk_hash(index, offset, buffer, (uint32_t)read, &manifest->chunks[index]);
+        status = sx_chunk_hash(index, offset, buffer, (uint32_t) read, &manifest->chunks[index]);
         if (status != SX_OK) {
             failed = 1;
             break;
@@ -103,7 +103,7 @@ sx_status sx_pack(const char *source_path, const char *dest_path, uint32_t chunk
     } else {
         /* Still must release the streaming context on the failure path. */
         uint8_t discard[SX_SHA256_DIGEST_LEN];
-        (void)sx_sha256_final(whole, discard);
+        (void) sx_sha256_final(whole, discard);
     }
 
     free(buffer);
@@ -167,13 +167,20 @@ sx_status sx_verify(const char *transfer_path, uint64_t *bad_chunk_out) {
 
 const char *sx_status_str(sx_status status) {
     switch (status) {
-        case SX_OK:            return "ok";
-        case SX_ERR_IO:        return "I/O error";
-        case SX_ERR_ALLOC:     return "allocation failure";
-        case SX_ERR_FORMAT:    return "malformed transfer format";
-        case SX_ERR_INTEGRITY: return "integrity check failed (corruption or tampering)";
-        case SX_ERR_ARGS:      return "invalid arguments";
-        case SX_ERR_CRYPTO:    return "cryptographic operation failed";
+    case SX_OK:
+        return "ok";
+    case SX_ERR_IO:
+        return "I/O error";
+    case SX_ERR_ALLOC:
+        return "allocation failure";
+    case SX_ERR_FORMAT:
+        return "malformed transfer format";
+    case SX_ERR_INTEGRITY:
+        return "integrity check failed (corruption or tampering)";
+    case SX_ERR_ARGS:
+        return "invalid arguments";
+    case SX_ERR_CRYPTO:
+        return "cryptographic operation failed";
     }
     return "unknown error";
 }

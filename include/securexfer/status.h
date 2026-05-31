@@ -5,12 +5,12 @@
  * functions translate internal failures into these stable codes. */
 typedef enum {
     SX_OK = 0,
-    SX_ERR_IO,          /* file open/read/write failure */
-    SX_ERR_ALLOC,       /* memory allocation failure */
-    SX_ERR_FORMAT,      /* malformed manifest / transfer file */
-    SX_ERR_INTEGRITY,   /* hash mismatch: corruption or tampering */
-    SX_ERR_ARGS,        /* invalid arguments */
-    SX_ERR_CRYPTO       /* underlying crypto operation failed */
+    SX_ERR_IO,        /* file open/read/write failure */
+    SX_ERR_ALLOC,     /* memory allocation failure */
+    SX_ERR_FORMAT,    /* malformed manifest / transfer file */
+    SX_ERR_INTEGRITY, /* hash mismatch: corruption or tampering */
+    SX_ERR_ARGS,      /* invalid arguments */
+    SX_ERR_CRYPTO     /* underlying crypto operation failed */
 } sx_status;
 
 /* A human-readable, static description of a status code. */

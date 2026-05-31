@@ -12,10 +12,10 @@
 
 /* Metadata describing one chunk of a file. */
 typedef struct {
-    uint64_t index;                          /* 0-based chunk index */
-    uint64_t offset;                         /* byte offset in the source file */
-    uint32_t length;                         /* bytes in this chunk */
-    uint8_t  hash[SX_SHA256_DIGEST_LEN];     /* SHA-256 of the chunk contents */
+    uint64_t index;                     /* 0-based chunk index */
+    uint64_t offset;                    /* byte offset in the source file */
+    uint32_t length;                    /* bytes in this chunk */
+    uint8_t hash[SX_SHA256_DIGEST_LEN]; /* SHA-256 of the chunk contents */
 } sx_chunk;
 
 /* Computes the number of chunks for a file of `file_size` bytes at `chunk_size`. */

@@ -6,8 +6,8 @@
 
 #include "securexfer/status.h"
 
-#define SX_SHA256_DIGEST_LEN 32       /* raw digest bytes */
-#define SX_SHA256_HEX_LEN    65       /* 64 hex chars + NUL terminator */
+#define SX_SHA256_DIGEST_LEN 32 /* raw digest bytes */
+#define SX_SHA256_HEX_LEN    65 /* 64 hex chars + NUL terminator */
 
 /* Computes the SHA-256 of a buffer into a 32-byte digest. */
 sx_status sx_sha256(const uint8_t *data, size_t len, uint8_t out[SX_SHA256_DIGEST_LEN]);

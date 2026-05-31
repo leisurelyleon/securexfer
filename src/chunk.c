@@ -19,7 +19,7 @@ sx_status sx_chunk_hash(uint64_t index, uint64_t offset, const uint8_t *data, ui
         return SX_ERR_ARGS;
     }
 
-    sx_status status = sx_sha256(data, (size_t)len, out->hash);
+    sx_status status = sx_sha256(data, (size_t) len, out->hash);
     if (status != SX_OK) {
         return status;
     }

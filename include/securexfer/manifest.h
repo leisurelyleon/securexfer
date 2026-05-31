@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include <stdio.h>   /* for FILE * in the read/write prototypes */
+#include <stdio.h> /* for FILE * in the read/write prototypes */
 
 #include "securexfer/chunk.h"
 #include "securexfer/sha256.h"
@@ -11,12 +11,12 @@
 
 /* An in-memory transfer manifest: file metadata plus per-chunk hashes. */
 typedef struct {
-    char     source_name[256];                  /* original file name (basename) */
-    uint64_t file_size;                          /* total bytes */
-    uint32_t chunk_size;                         /* chunk size used */
-    uint64_t chunk_count;                        /* number of chunks */
-    uint8_t  whole_hash[SX_SHA256_DIGEST_LEN];   /* SHA-256 of the entire file */
-    sx_chunk *chunks;                            /* owned array of chunk_count entries */
+    char source_name[256];                    /* original file name (basename) */
+    uint64_t file_size;                       /* total bytes */
+    uint32_t chunk_size;                      /* chunk size used */
+    uint64_t chunk_count;                     /* number of chunks */
+    uint8_t whole_hash[SX_SHA256_DIGEST_LEN]; /* SHA-256 of the entire file */
+    sx_chunk *chunks;                         /* owned array of chunk_count entries */
 } sx_manifest;
 
 /* Allocates a manifest with space for `chunk_count` chunks. */

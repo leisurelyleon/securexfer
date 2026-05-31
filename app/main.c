@@ -13,7 +13,7 @@ static int cmd_pack(int argc, char **argv) {
     }
     uint32_t chunk_size = 0;
     if (argc >= 5) {
-        chunk_size = (uint32_t)strtoul(argv[4], NULL, 10);
+        chunk_size = (uint32_t) strtoul(argv[4], NULL, 10);
     }
 
     sx_status status = sx_pack(argv[2], argv[3], chunk_size);
@@ -33,7 +33,7 @@ static int cmd_verify(int argc, char **argv) {
     uint64_t bad = 0;
     sx_status status = sx_verify(argv[2], &bad);
     if (status == SX_ERR_INTEGRITY) {
-        fprintf(stderr, "INTEGRITY FAILURE at chunk %llu\n", (unsigned long long)bad);
+        fprintf(stderr, "INTEGRITY FAILURE at chunk %llu\n", (unsigned long long) bad);
         return 1;
     }
     if (status != SX_OK) {
@@ -61,9 +61,9 @@ static int cmd_info(int argc, char **argv) {
     sx_sha256_to_hex(manifest->whole_hash, whole_hex);
 
     printf("Source name: %s\n", manifest->source_name);
-    printf("File size:   %llu bytes\n", (unsigned long long)manifest->file_size);
+    printf("File size:   %llu bytes\n", (unsigned long long) manifest->file_size);
     printf("Chunk size:  %u bytes\n", manifest->chunk_size);
-    printf("Chunks:      %llu\n", (unsigned long long)manifest->chunk_count);
+    printf("Chunks:      %llu\n", (unsigned long long) manifest->chunk_count);
     printf("Whole hash:  %s\n", whole_hex);
 
     sx_manifest_free(manifest);

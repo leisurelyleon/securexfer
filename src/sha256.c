@@ -25,8 +25,7 @@ sx_status sx_sha256(const uint8_t *data, size_t len, uint8_t out[SX_SHA256_DIGES
     sx_status status = SX_OK;
     unsigned int out_len = 0;
 
-    if (EVP_DigestInit_ex(ctx, EVP_sha256(), NULL) != 1 ||
-        EVP_DigestUpdate(ctx, data, len) != 1 ||
+    if (EVP_DigestInit_ex(ctx, EVP_sha256(), NULL) != 1 || EVP_DigestUpdate(ctx, data, len) != 1 ||
         EVP_DigestFinal_ex(ctx, out, &out_len) != 1) {
         status = SX_ERR_CRYPTO;
     }
@@ -90,7 +89,7 @@ sx_status sx_sha256_final(sx_sha256_ctx *ctx, uint8_t out[SX_SHA256_DIGEST_LEN])
 void sx_sha256_to_hex(const uint8_t digest[SX_SHA256_DIGEST_LEN], char out[SX_SHA256_HEX_LEN]) {
     static const char hex[] = "0123456789abcdef";
     for (size_t i = 0; i < SX_SHA256_DIGEST_LEN; ++i) {
-        out[i * 2]     = hex[(digest[i] >> 4) & 0x0F];
+        out[i * 2] = hex[(digest[i] >> 4) & 0x0F];
         out[i * 2 + 1] = hex[digest[i] & 0x0F];
     }
     out[SX_SHA256_DIGEST_LEN * 2] = '\0';
