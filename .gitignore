@@ -53,3 +53,17 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# --- securexfer project-specific additions ---
+
+# Build output directory
+/build/
+
+# Packed transfer artifacts produced by the CLI / demo
+*.sxfer
+/out/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
